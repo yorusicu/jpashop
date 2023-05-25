@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:h2:tcp://localhost/~/jpashop
+        url: jdbc:h2:mem:test
         username: sa
         password:
         driver-class-name: org.h2.Driver
@@ -12,8 +12,9 @@ spring:
 #           쿼리 정렬해서 찍어줄려면 hibernate가 있어야 함
             hibernate:
                 format_sql: true
+
 logging.level:
 #    sql로그를 log에 찍어줌
     org.hibernate.SQL: debug
 #    로그를 많이 보여줌
-#    org.hibernate.type: trace
+    org.hibernate.type: trace
