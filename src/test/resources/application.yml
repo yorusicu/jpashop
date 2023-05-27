@@ -6,7 +6,7 @@ spring:
         driver-class-name: org.h2.Driver
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: update
         properties:
 #            show_sql: true
 #           쿼리 정렬해서 찍어줄려면 hibernate가 있어야 함

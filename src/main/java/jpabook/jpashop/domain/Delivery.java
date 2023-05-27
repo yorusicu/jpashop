@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Delivery {
     @Id
     @GeneratedValue
-    @Column(name = "delibery_id")
+    @Column(name = "delivery_id")
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
@@ -21,5 +21,5 @@ public class Delivery {
     private  Addresses addresses;
 
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus deliveryStatus;  // READY, COMP
+    private DeliveryStatus status;  // READY, COMP
 }

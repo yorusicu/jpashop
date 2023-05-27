@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
+@Slf4j
 @Entity
 @Table(name = "order_item")
 @Getter @Setter
@@ -39,17 +41,18 @@ public class OrderItem {
         orderItem.setOrderPrice(orderPrice);
         orderItem.setCount(count);
 
-        item.remeveStock(count);
+        item.removeStock(count);
         return orderItem;
     }
 
     /** 비즈니스로직 */
     public void cancel() {
-        getItem().addStack(count);
+        getItem().addStock(count);
     }
 
     /** 주문상품 전체 가격조회*/
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
     }
+
 }

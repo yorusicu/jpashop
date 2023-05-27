@@ -2,12 +2,14 @@ package jpabook.jpashop.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Entity
 @Table(name = "orders")
 @Getter @Setter
@@ -31,7 +33,7 @@ public class Order {
     private LocalDateTime orderDate; // 주문시간
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus stauts; // 주문상태 [ORDER, CANCEL]
+    private OrderStatus status; // 주문상태 [ORDER, CANCEL]
 
     // 연관관계 메서드
     public void setMember(Member member) {
@@ -44,7 +46,7 @@ public class Order {
         orderItem.setOrder(this);
     }
 
-    public void setdelivery(Delivery delivery) {
+    public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
@@ -55,11 +57,11 @@ public class Order {
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
-        order.setdelivery(delivery);
+        order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
-        order.setStauts(OrderStatus.ORDER);
+        order.setStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
 
         return order;
@@ -69,14 +71,13 @@ public class Order {
     /** 주문취소*/
     public void cancel() {
         // 배송완료 COMP
-        if (delivery.getDeliveryStatus()== DeliveryStatus.COMP) {
+        if (delivery.getStatus()== DeliveryStatus.COMP) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가합니다.");
         }
 
-        this.setStauts(OrderStatus.CANCEL);
+        this.setStatus(OrderStatus.CANCEL);
 
-        for (OrderItem orderItem :
-                orderItems) {
+        for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
     }
@@ -86,8 +87,7 @@ public class Order {
     /** 전체주문 가격 조회 */
     public int getTotalPrice() {
 //        int totalPrice = 0;
-//        for (OrderItem orderItem :
-//                orderItems)
+//        for (OrderItem orderItem :orderItems)
 //            totalPrice += orderItem.getTotalPrice();
 //        return totalPrice;
 

@@ -6,12 +6,16 @@ spring:
         driver-class-name: org.h2.Driver
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: none
         properties:
 #            show_sql: true
 #           쿼리 정렬해서 찍어줄려면 hibernate가 있어야 함
             hibernate:
                 format_sql: true
+    thymeleaf:
+        prefix: classpath:/templates/
+        suffix: .html
+
 logging.level:
 #    sql로그를 log에 찍어줌
     org.hibernate.SQL: debug
