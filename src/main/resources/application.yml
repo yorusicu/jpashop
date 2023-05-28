@@ -12,6 +12,7 @@ spring:
 #           쿼리 정렬해서 찍어줄려면 hibernate가 있어야 함
             hibernate:
                 format_sql: true
+                default_batch_fetch_size: 100
     thymeleaf:
         prefix: classpath:/templates/
         suffix: .html

@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Member {
     private Addresses address;
 
     // 내가 맵핑하는 애가 아니라는 mappedBy 값을 넣어도 외래키는 변경 안됨
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
